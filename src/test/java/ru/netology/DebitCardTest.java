@@ -11,11 +11,11 @@ class DebitCardTest {
     @Test
     void shouldTest() {
         open("http://localhost:9999");
-        $("[data-test-id=name] input").setValue("Мария Иванова");
+        $("[data-test-id=name] input").setValue("Maria Ivanova");
         $("[data-test-id=phone] input").setValue("+79110000000");
         $(".checkbox").click();
         $(".button").click();
-        $("[data-test-id=order-success]").shouldHave(exactText("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время."));
+        $("[data-test-id=name]").shouldHave(exactText("Фамилия и имя Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
     }
 
 }
