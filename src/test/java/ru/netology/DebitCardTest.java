@@ -38,13 +38,23 @@ class DebitCardTest {
     }
 
     @Test
-    void shouldNegativeTestNameAndPhone() {
+    void shouldNegativeTestEmptyName() {
         open("http://localhost:9999");
         $("[data-test-id=name] input").setValue("");
-        $("[data-test-id=phone] input").setValue("");
+        $("[data-test-id=phone] input").setValue("+79110000000");
         $(".checkbox").click();
         $(".button").click();
         $("[data-test-id='name'].input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
+    }
+
+    @Test
+    void shouldNegativeTestEmptyPhone() {
+        open("http://localhost:9999");
+        $("[data-test-id=name] input").setValue("Мария Иванова");
+        $("[data-test-id=phone] input").setValue("");
+        $(".checkbox").click();
+        $(".button").click();
+        $("[data-test-id='phone'].input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
     }
 
     @Test
@@ -53,7 +63,7 @@ class DebitCardTest {
         $("[data-test-id=name] input").setValue("Мария Иванова");
         $("[data-test-id=phone] input").setValue("+79110000000");
         $(".button").click();
-        $(".checkbox").shouldHave(exactText("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй"));
+        $("[data-test-id='agreement'].input_invalid").shouldHave(exactText("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй"));
     }
 
 }
